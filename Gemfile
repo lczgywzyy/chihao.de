@@ -27,6 +27,20 @@ gem 'devise', '3.2.4'
 gem 'bootstrap-sass','~>3.1.1'
 gem 'sprockets','2.11.0'
 
+gem 'will_paginate', '~> 3.0'
+
+#gem "rmagick",'2.13.2', :require => 'RMagick'
+
+#manager upload file 
+#https://github.com/carrierwaveuploader/carrierwave
+#gem 'carrierwave'
+
+gem "paperclip", "~> 4.1"
+
+#richtext editer
+gem 'mercury-rails'
+
+
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

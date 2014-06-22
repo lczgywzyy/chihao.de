@@ -1,10 +1,12 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.where( restaurant_id = params[:restaurant_id] )
+    cookies['restaurant_id'] = restaurant_id
   end
 
   # GET /recipes/1
@@ -14,11 +16,17 @@ class RecipesController < ApplicationController
 
   # GET /recipes/new
   def new
-    @recipe = Recipe.new
+    if current_user.rank == 1 or current_user.rank == 2
+      @recipe = Recipe.new
+    else
+      flash[:notice] = "您还未创建餐厅，请先创建餐厅！"
+      redirect_to restaurants_path
+    end
   end
 
   # GET /recipes/1/edit
   def edit
+    
   end
 
   # POST /recipes
@@ -69,6 +77,7 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :price, :description, :restaurant_id, :image_url)
+      params.require(:recipe).permit(:name, :price, :description, :restaurant_id,
+                                    :image_url, :avatar, :remote_avatar_url)
     end
 end

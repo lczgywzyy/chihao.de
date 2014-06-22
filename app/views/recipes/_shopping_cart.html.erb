@@ -1,0 +1,27 @@
+
+<!-- Modal -->
+<div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">我点的外卖：</h4>
+      </div>
+      <div class="modal-body">
+        <table id="my-order" class='table'>
+					<thead>
+						<th>菜名</th>
+					  <th>价格(元)</th>
+						<th>份数</th>
+						<th>操作</th>
+					</thead>
+				</table>
+      </div>
+      <div class="modal-footer">
+				<h2>合计：￥<span id='modal-cart-sum'>0</span>元</h2>
+        <button id='modal-cancel' type="button" class="btn btn-default" data-dismiss="modal">取消订单</button>
+        <button id='modal-submit' type="button" class="btn btn-warning">通知送餐</button>
+      </div>
+    </div>
+  </div>
+</div>

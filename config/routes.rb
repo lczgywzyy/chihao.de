@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :orders
+
   resources :restaurants
 
   resources :recipes
@@ -6,6 +8,9 @@ Rails.application.routes.draw do
   devise_for :users, path_names: {
     sign_in: 'login', sign_out: 'logout'
   }
+  
+  get 'cities' => 'cities#show'
+  get 'counties' => 'counties#show'
 
   root 'restaurants#index'
 

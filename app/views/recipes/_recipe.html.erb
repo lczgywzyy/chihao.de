@@ -1,0 +1,6 @@
+<tr id='recipe-<%= recipe.id %>'>
+	<td class="recipe-name color-danger"><b><%= recipe.name %></b></td>
+	<td class="RMB color-info"></td>
+	<td class="label label-warning">￥<%= recipe.price %></td>
+	<td id="order-sign" class="glyphicon glyphicon-ok-sign" data-recipe="<%= recipe.to_json %>" style="cursor:pointer"></td>
+</tr>

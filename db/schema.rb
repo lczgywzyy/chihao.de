@@ -11,23 +11,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605065823) do
+ActiveRecord::Schema.define(version: 20140612122146) do
 
-  create_table "recipes", force: true do |t|
-    t.string   "name"
-    t.decimal  "price"
-    t.string   "description"
-    t.integer  "restaurant_id"
-    t.string   "image_url"
+  create_table "assignments", force: true do |t|
+    t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "cities", force: true do |t|
+    t.string  "name"
+    t.integer "province_id"
+  end
+
+  create_table "counties", force: true do |t|
+    t.string  "name"
+    t.integer "province_id"
+    t.integer "city_id"
+    t.string  "zipcode"
+    t.string  "phonecode"
+  end
+
+  create_table "courses", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.integer  "recipe_id"
+    t.datetime "attend_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "price"
+  end
+
+  create_table "provinces", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "recipes", force: true do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.text     "description"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  add_index "recipes", ["name", "restaurant_id"], name: "index_recipes_on_name_and_restaurant_id", unique: true
+
   create_table "restaurants", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.integer  "recipe_id"
-    t.string   "image_url"
     t.string   "phone1"
     t.string   "phone2"
     t.string   "phone3"
@@ -35,6 +79,17 @@ ActiveRecord::Schema.define(version: 20140605065823) do
     t.string   "phone5"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "address"
+    t.integer  "user_id"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "county_id"
+    t.integer  "address_id"
+    t.string   "range"
   end
 
   create_table "users", force: true do |t|
@@ -63,6 +118,8 @@ ActiveRecord::Schema.define(version: 20140605065823) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "restaurant_id"
+    t.integer  "rank"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

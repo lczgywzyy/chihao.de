@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+recipe = []
+sample = 20.times do |i|
+  recipe << {name:"鱼香肉丝_#{i}", price: 55, restaurant_id:2 }
+end
+recipes = Recipe.create( recipe )

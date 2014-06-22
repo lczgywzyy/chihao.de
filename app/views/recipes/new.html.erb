@@ -1,5 +1,6 @@
-<h1>New recipe</h1>
+  <h1><%= current_user.restaurant %>的管理员，您好！</h1>
+	<%= render 'form' %>
 
-<%= render 'form' %>
+	<%= link_to 'Back', recipes_path %>
 
-<%= link_to 'Back', recipes_path %>
+

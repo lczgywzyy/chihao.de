@@ -1,33 +1,116 @@
-<h1>Listing recipes</h1>
+<%= render 'shopping_cart' %>
+<!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="<%= image_url('food.jpg') %>" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>隆重推出，欢迎品尝！</h1>
+              <p>作为新品，本菜谱口感酸辣，味道鲜美。非常适合各位大侠品尝.</p>
+              <p><%= link_to "加入购物车", new_user_session_path, class:"btn btn-lg btn-primary" %></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<%= image_url('food2.jpg') %>" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>鱼香肉丝，就是这个味！</h1>
+              <p>还在为卫生担忧吗？还在为食品安全担忧吗？我们精选合作商家，让您远离地沟油，远离“臭脚米粉”，远离一切有毒食品。我们所作的一切，就是为了您的方便和卫生！</p>
+              <p><%= link_to "加入购物车", new_user_session_path, class:"btn btn-lg btn-primary" %></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<%= image_url('food3.jpg') %>" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>土豆牛肉面，我们的最爱！</h1>
+              <p>我们精选您身边的粤菜、川菜、湘菜、西餐以及肯德基、麦当劳等外卖为您提供多种选择，同时提供各种小点、热饮以及冷饮等.</p>
+              <p>
+							<%= link_to "加入购物车", new_user_session_path, class:"btn btn-lg btn-primary" %>
+							</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th>Restaurant</th>
-      <th>Image url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+ <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
 
-  <tbody>
-    <% @recipes.each do |recipe| %>
-      <tr>
-        <td><%= recipe.name %></td>
-        <td><%= recipe.price %></td>
-        <td><%= recipe.description %></td>
-        <td><%= recipe.restaurant_id %></td>
-        <td><%= recipe.image_url %></td>
-        <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="container marketing">
 
-<br>
+      <!-- Three columns of text below the carousel -->
+		
+      <!-- START THE FEATURETTES -->
+		 <% @recipes_splited = @recipes.in_groups_of(10) %>
 
-<%= link_to 'New Recipe', new_recipe_path %>
+		 <% @recipes_splited.length.times do |i|  %>
+		 			<% @recipes_splited[i].compact!  %>
+					
+			 		<% if i%2 == 0 %>
+					   <%= render partial:'featurette', object:@recipes_splited[i], as: :recipes %><br>
+				  <% else %>
+	 				   <%= render partial:'featurette_inverse', object:@recipes_splited[i], as: :recipes %><br>
+	 				 <% end  %>
+
+		 <% end %>
+     
+			
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+	
+
+
+
+
+<div class="recipes">
+	<hr>
+	
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th>菜名</th>
+	      <th>价格</th>
+	      <th>描述</th>
+	      <th>饭店</th>
+	      <th>样图</th>
+	      <th colspan="2"></th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @recipes.each do |recipe| %>
+	      <tr>
+					<td><%= link_to recipe.name, recipe %></td>
+	        <td><%= recipe.price %></td>
+	        <td><%= recipe.description %></td>
+	        <td><%= recipe.restaurant.name %></td>
+	        <td><%= image_tag recipe.avatar.url(:thumb) if recipe.avatar %></td>
+	        <td><%= link_to '编辑', edit_recipe_path(recipe) %></td>
+	        <td><%= link_to '删除', recipe, method: :delete, data: { confirm: '点击确认删除' } %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+	<br>
+
+	<%= link_to '添加新菜单', new_recipe_path %>
+	
+</div>

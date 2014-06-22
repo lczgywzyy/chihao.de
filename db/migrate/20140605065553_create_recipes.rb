@@ -3,9 +3,8 @@ class CreateRecipes < ActiveRecord::Migration
     create_table :recipes do |t|
       t.string :name
       t.decimal :price
-      t.string :description
+      t.text :description
       t.integer :restaurant_id
-      t.string :image_url
 
       t.timestamps
     end

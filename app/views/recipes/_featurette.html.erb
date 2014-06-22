@@ -1,0 +1,36 @@
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+  <div class="col-md-7">
+    <h2 class="featurette-heading">First featurette heading.</h2>
+    <ul class="lead">
+			<div class="pull-left">
+							<table>
+										<% 5.times do |i| %>
+											<% recipe = recipes[i]  %>
+											<% if !recipe  %>
+												<% break %>
+											<% end %>
+											<%= render partial:'recipe', object:recipe %>
+										<% end  %>
+							</table>
+					</div>
+				
+					<div class="pull-right">
+							<table>
+								<% 5.times do |i| %>
+								  <% recipe = recipes[i+5]  %>
+									<% if !recipe  %>
+										<% break %>
+									<% end %>
+									<%= render partial:'recipe', object:recipe %>
+								<% end  %>
+							</table>
+			</div>
+		</ul>
+  </div>
+  <div class="col-md-5">
+    <img class="featurette-image img-responsive" src="<%= image_url("recipes/dishes.jpg") %>" alt="Generic placeholder image">
+  </div>
+</div>

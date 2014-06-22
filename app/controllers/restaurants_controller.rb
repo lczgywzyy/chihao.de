@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   # GET /restaurants
   # GET /restaurants.json
@@ -28,7 +29,10 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
+        current_user.rank = 2 #管理员为1，商户为2，普通用户为3
+        current_user.restaurant_id = @restaurant.id
+        current_user.save!
+        format.html { redirect_to @restaurant, notice: '您已经成功创建餐厅！' }
         format.json { render :show, status: :created, location: @restaurant }
       else
         format.html { render :new }
@@ -69,6 +73,7 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :description, :recipe_id, :image_url, :phone1, :phone2, :phone3, :phone4, :phone5)
+      params.require(:restaurant).permit(:name, :description, :recipe_id, :avatar, :phone1, :phone2, :phone3,
+                                     :phone4, :phone5, :user_id, :province_id, :city_id, :county_id, :address)
     end
 end
