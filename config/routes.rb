@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :orders
+  
+  #resources :orders
 
   resources :restaurants
 
-  resources :recipes
+  resources :recipes do
+    resources :orders
+  end
 
   devise_for :users, path_names: {
     sign_in: 'login', sign_out: 'logout'
