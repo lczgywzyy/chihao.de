@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :restaurant
+  has_many               :restaurant
   has_and_belongs_to_many :course
   has_many :assignments, :through => :courses
   

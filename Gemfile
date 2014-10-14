@@ -38,7 +38,7 @@ gem 'will_paginate', '~> 3.0'
 #gem 'carrierwave'
 
 gem "paperclip", "~> 4.1"
-
+gem "simple_form"
 #richtext editer
 #gem 'mercury-rails'
 
@@ -60,8 +60,9 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]
 
+gem 'rubocop', group: :development

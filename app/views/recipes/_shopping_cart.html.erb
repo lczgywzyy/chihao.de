@@ -8,6 +8,9 @@
         <h4 class="modal-title" id="myModalLabel">我点的外卖：</h4>
       </div>
       <div class="modal-body">
+				<form action="<%= new_order_path %>" method="get">
+					<input type="hidden" name="restaurant_id" value="<%= params[:restaurant_id] %>"/>
+					<input id='orders-num' type="hidden" name="orders_num" value=""/>
         <table id="my-order" class='table'>
 					<thead>
 						<th>菜名</th>
@@ -20,8 +23,9 @@
       <div class="modal-footer">
 				<h2>合计：￥<span id='modal-cart-sum'>0</span>元</h2>
         <button id='modal-cancel' type="button" class="btn btn-default" data-dismiss="modal">取消订单</button>
-        <button id='modal-submit' type="button" class="btn btn-warning">通知送餐</button>
+        <input type="submit" id='modal-submit' class='btn btn-warning' value="通知送餐"></input>
       </div>
+		</form>
     </div>
   </div>
 </div>

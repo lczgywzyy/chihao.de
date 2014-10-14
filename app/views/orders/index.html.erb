@@ -1,4 +1,4 @@
-<h1>Listing orders</h1>
+<h1>您预定的<%= @restaurant_name %>的菜单为：</h1>
 
 <table>
   <thead>
@@ -8,11 +8,11 @@
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <% @order_specifications.each do |spec| %>
       <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= spec.name %></td>
+				<td><%= spec.price %></td>
+				<td><%= spec.count %></td>
       </tr>
     <% end %>
   </tbody>
@@ -20,4 +20,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+

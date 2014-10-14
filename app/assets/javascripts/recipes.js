@@ -1,42 +1,9 @@
-var order = {};
+
 
 $(document).ready(function(){
 	
-	$.removeCookie('order');
+	$.cookie('order', '');
 	
-	$('#restaurant_province_id').change(function(){
-		 $('#restaurant_city_id').remove();
-		 $('#restaurant_ccounty_id').remove();
-		 $('#city').append('<select id="restaurant_city_id" name="restaurant[city]">');
-		
-		 var province_id = $('#restaurant_province_id').val();
-
-		 $.getJSON('../cities/?format=json&province_id=' + province_id, function(data){
-			 var cities = [];
-			 $.each( data, function( key, val ){
-				 $('#city select').append('<option value="' + val[1] + '">' + val[0] + '</option>');
-			 });
-			 
-			 $('#city option').last().append('</select></span>');
-		 });
-	
-	})
-	
-	$('#city').click(function(){
-		 $('#restaurant_county_id').remove();
-		 $('#county').append('<select id="restaurant_county_id" name="restaurant[county]">');
-
-		 var city_id = $('#restaurant_city_id').val();
-		 
-		 $.getJSON('../counties/?format=json&city_id=' + city_id, function(counties_data){
-			 var counties = [];
-			 $.each( counties_data, function( key, val ){
-				 $('#county select').append('<option value="' + val[1] + '">' + val[0] + '</option>');
-			 });
-			 
-			 $('#county option').last().append('</select>');
-		 });
-	})
 	
 	$('.glyphicon-ok-sign').click(function(){
 		$(this).toggleClass('recipe-ordered');
@@ -48,11 +15,14 @@ $(document).ready(function(){
 		
     if ( $('#recipe-' + recipe_id).find('.recipe-ordered').length ){
 			$('#cart-num').html( parseInt(i) + 1 );
-			$('#my-order').append('<tr id="' + recipe_id + '">'  +
-														'<td class="modal-recipe-name">' + recipe_name + '</td>'  +
-														'<td class="modal-recipe-price">￥' + recipe_price + '</td>' +
+			$('#orders-num').val( parseInt(i) + 1 );
+ 			$('#my-order').append('<tr id="' + recipe_id + '">'       +
+														'<td class="modal-recipe-name">'    + recipe_name   + '</td>'  +
+														'<input name="specifications[' + i + '][recipe_id]" type="hidden" value="' + recipe_id     + '"/>'    + 
+														'<td class="modal-recipe-price">￥' + recipe_price   + '</td>'  +
+														'<input name="specifications[' + i + '][price]" type="hidden" value="'      + recipe_price   + '"/>'    +
 														'<td><button id="modal-recipe-minus" data-recipeid="' + recipe_id + '" class="btn btn-info btn-xs">-</button>' + 
-														'<input id="modal-recipe-count-'+ recipe_id + '" type="text" class="modal-recipe-count form-control" value="1"></input>'+
+														'<input name="specifications[' + i + '][count]" id="modal-recipe-count-'+ recipe_id + '" type="text" class="modal-recipe-count form-control" value="1"></input>'+
 														'<button id="modal-recipe-plus" data-recipeid="' + recipe_id + '" class="btn btn-info btn-xs">+</button></td>' +
 													  '<td><input id="modal-recipe-checkbox-' + recipe_id + '" type="checkbox" checked="true"></td></tr>');
 			
@@ -62,6 +32,7 @@ $(document).ready(function(){
 		
 		} else {
 			$('#cart-num').html( parseInt(i) - 1 );
+			$('#orders-num').val( parseInt(i) - 1  );
 			$('#cart-modal #' + recipe_id).remove();
 			$('#modal-cart-sum').html(recipe_sum - recipe_price);
 			order[recipe_id]['count'] = 0;

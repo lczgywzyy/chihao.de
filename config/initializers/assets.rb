@@ -1,0 +1,1 @@
+Rails.application.config.assets.precompile += %w( restaurants.js recipes.js orders.js )

@@ -12,6 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.json.js
+//= require jquery.cookie.js
 //= require turbolinks
 //= require bootstrap
-//= require_tree .
+
+
+var order = {};
+
