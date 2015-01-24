@@ -1,12 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'rails', '~>4.2'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
-# Use sqlite3 as the database for Active Record
-group :development, :test do
-  gem 'sqlite3' 
-end
+gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,9 +36,6 @@ gem 'will_paginate', '~> 3.0'
 
 gem "paperclip", "~> 4.1"
 gem "simple_form"
-#richtext editer
-#gem 'mercury-rails'
-
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -49,7 +43,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :production do  
-  gem 'pg', '0.15.1'  
   gem 'rails_12factor', '0.0.2'  
 end  
 
@@ -62,7 +55,9 @@ end
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
 
-gem 'rubocop', group: :development
+group :development, :test do
+  gem 'guard-spork'
+  gem 'guard-livereload'
+  gem 'guard-minitest'
+end
