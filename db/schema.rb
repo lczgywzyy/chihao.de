@@ -13,18 +13,21 @@
 
 ActiveRecord::Schema.define(version: 20140804223848) do
 
-  create_table "assignments", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "assignments", force: :cascade do |t|
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "cities", force: true do |t|
+  create_table "cities", force: :cascade do |t|
     t.string  "name"
     t.integer "province_id"
   end
 
-  create_table "counties", force: true do |t|
+  create_table "counties", force: :cascade do |t|
     t.string  "name"
     t.integer "province_id"
     t.integer "city_id"
@@ -32,14 +35,14 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.string  "phonecode"
   end
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "order_specifications", force: true do |t|
+  create_table "order_specifications", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "user_id"
     t.integer  "restaurant_id"
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.datetime "updated_at"
   end
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "restaurant_id"
     t.datetime "attend_time"
@@ -62,11 +65,11 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.string   "delivery_name"
   end
 
-  create_table "provinces", force: true do |t|
+  create_table "provinces", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "recipes", force: true do |t|
+  create_table "recipes", force: :cascade do |t|
     t.string   "name"
     t.decimal  "price"
     t.text     "description"
@@ -79,9 +82,9 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "recipes", ["name", "restaurant_id"], name: "index_recipes_on_name_and_restaurant_id", unique: true
+  add_index "recipes", ["name", "restaurant_id"], name: "index_recipes_on_name_and_restaurant_id", unique: true, using: :btree
 
-  create_table "restaurants", force: true do |t|
+  create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "recipe_id"
@@ -105,7 +108,7 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.string   "range"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "phone"
@@ -135,9 +138,9 @@ ActiveRecord::Schema.define(version: 20140804223848) do
     t.integer  "rank"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
 end
